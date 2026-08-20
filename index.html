@@ -7,417 +7,282 @@
 <style>
 :root{
   --black:#080706;
-  --brown:#21140d;
-  --brown2:#321d12;
-  --wine:#401318;
-  --gold:#b9863e;
-  --gold2:#e3c178;
-  --cream:#f4e5c6;
-  --paper:#efe0bc;
-  --ink:#281b12;
-  --green:#284f2c;
-  --green2:#95ce6d;
-  --red:#8f3939;
-  --serif: Georgia, "Times New Roman", serif;
-  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --panel:rgba(14,12,9,.91);
+  --gold:#b9863f;
+  --gold2:#f0cf88;
+  --cream:#f6e7ca;
+  --green:#274629;
+  --red:#8c3b38;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:#070605;color:var(--cream);font-family:var(--sans)}
-body{padding:0}
-button,input{font:inherit}
-
 #app{
-  width:100%;
-  max-width:1180px;
-  margin:0 auto;
-  min-height:820px;
-  position:relative;
-  overflow:hidden;
-  background:#0b0907;
-  border:1px solid #584123;
-  box-shadow:0 24px 85px rgba(0,0,0,.62);
+  width:100%;max-width:1180px;margin:0 auto;min-height:820px;
+  position:relative;overflow:hidden;background:#0b0907;
+  border:1px solid #4c3821;box-shadow:0 25px 80px rgba(0,0,0,.68);
 }
-
-/* ---------- chrome ---------- */
 .topbar{
-  position:relative;z-index:50;
-  min-height:78px;
-  padding:14px 24px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  background:
-    linear-gradient(180deg,rgba(23,15,10,.98),rgba(10,8,6,.98));
-  border-bottom:1px solid #705126;
-  box-shadow:0 5px 18px rgba(0,0,0,.52);
+  position:relative;z-index:50;min-height:78px;padding:14px 24px;
+  display:flex;justify-content:space-between;align-items:center;gap:18px;
+  background:linear-gradient(180deg,rgba(14,10,7,.98),rgba(8,7,6,.96));
+  border-bottom:1px solid #6e4d27;box-shadow:0 6px 20px rgba(0,0,0,.55);
 }
-.brand{
-  font-family:var(--serif);
-  color:#edce86;
-  font-size:1.48rem;
-  letter-spacing:.035em;
-  text-shadow:0 2px 4px #000;
-}
-.brand small{
-  display:block;margin-top:2px;
-  color:#b9965d;font-family:var(--sans);
-  font-size:.66rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.18em;
-}
+.brand{font-family:var(--serif);font-size:1.48rem;color:var(--gold2);letter-spacing:.03em}
+.brand small{display:block;font-family:var(--sans);font-size:.66rem;color:#c6a164;margin-top:3px;letter-spacing:.18em;text-transform:uppercase}
 .progress{display:flex;gap:8px}
-.progress .p{
-  width:34px;height:34px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  border:2px solid #795526;background:#15100b;color:#d1ad67;
-  font-family:var(--serif);font-weight:bold;
-  box-shadow:inset 0 0 8px #000;
-  transition:.35s ease;
+.progress .dot{
+  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:2px solid #7b5729;background:#13100d;color:#d8b46c;
+  box-shadow:inset 0 0 10px #000;font-family:var(--serif);font-weight:bold
 }
-.progress .p.done{
-  color:#13210e;
-  background:radial-gradient(circle at 30% 25%,#f4e4a5,#a8742e);
-  border-color:#d9b05f;
-  box-shadow:0 0 14px rgba(229,190,107,.7);
+.progress .dot.done{
+  background:radial-gradient(circle at 30% 25%,#f1dda0,#9f6b2a);
+  color:#14210d;border-color:#e0b563;box-shadow:0 0 15px rgba(232,190,104,.72)
 }
 
-/* ---------- image-backed scene ---------- */
-.scene{
-  min-height:744px;
-  position:relative;
-  overflow:hidden;
+/* Generated realistic hallway stays as your existing asset. */
+.room{
+  position:relative;min-height:744px;overflow:hidden;
   background:
     linear-gradient(rgba(5,4,3,.18),rgba(5,4,3,.42)),
-    url("assets/hallway.jpg") center center / cover no-repeat;
+    url("assets/hallway.jpg") center center/cover no-repeat;
 }
-.scene::before{
-  content:"";
-  position:absolute;inset:0;z-index:1;pointer-events:none;
+.room::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
   background:
-    radial-gradient(ellipse at 50% 44%,transparent 20%,rgba(0,0,0,.12) 52%,rgba(0,0,0,.54) 100%),
-    linear-gradient(90deg,rgba(0,0,0,.32),transparent 18% 82%,rgba(0,0,0,.32));
+    radial-gradient(ellipse at center,transparent 34%,rgba(0,0,0,.25) 72%,rgba(0,0,0,.58) 100%),
+    linear-gradient(90deg,rgba(0,0,0,.22),transparent 18% 82%,rgba(0,0,0,.22))
 }
-.scene::after{
-  content:"";
-  position:absolute;inset:-8%;z-index:2;pointer-events:none;
-  background-image:radial-gradient(circle,rgba(255,225,155,.9) 0 1px,transparent 1.5px);
-  background-size:93px 79px;opacity:.11;
-  animation:dust 18s linear infinite;
+.room::after{
+  content:"";position:absolute;inset:-5%;z-index:2;pointer-events:none;opacity:.16;
+  background-image:radial-gradient(circle,rgba(245,208,126,.7) 0 1px,transparent 1.6px);
+  background-size:100px 90px;animation:dust 20s linear infinite
 }
-@keyframes dust{to{transform:translate3d(50px,-30px,0)}}
+@keyframes dust{from{transform:translate(0,0)}to{transform:translate(45px,-28px)}}
 
-/* ---------- interactive light overlay ---------- */
-.light{
-  position:absolute;z-index:5;
-  top:90px;width:95px;height:145px;
-  pointer-events:none;
+/* Live flickering sconces */
+.sconce{position:absolute;top:110px;z-index:8;width:66px;height:116px;filter:drop-shadow(0 6px 7px rgba(0,0,0,.62))}
+.sconce.left{left:8%}.sconce.right{right:8%}
+.sconce .base{
+  position:absolute;left:18px;bottom:4px;width:31px;height:43px;border-radius:50% 50% 42% 42%;
+  background:radial-gradient(circle at 50% 25%,#d0a255,#765022 58%,#33200f);border:1px solid #d8ad66
 }
-.light.left{left:5%}.light.right{right:5%}
-.light .glow{
-  position:absolute;left:-28px;top:-28px;width:150px;height:150px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,190,77,.22),rgba(255,153,43,.08) 43%,transparent 69%);
-  animation:glow 1.45s infinite alternate ease-in-out;
+.sconce .stem{position:absolute;left:30px;top:48px;width:7px;height:45px;background:linear-gradient(90deg,#5c3b18,#d3a358,#583817)}
+.sconce .candle{position:absolute;left:28px;top:28px;width:11px;height:38px;border-radius:3px;background:linear-gradient(90deg,#cab88e,#fff0c2,#b9a47d)}
+.sconce .flame{
+  position:absolute;left:22px;top:-4px;width:24px;height:43px;transform-origin:50% 100%;
+  border-radius:50% 50% 45% 45%/63% 63% 37% 37%;
+  background:radial-gradient(ellipse at 50% 73%,#fffbd2 0 9%,#ffd76c 23%,#f08d31 49%,rgba(214,73,22,.32) 65%,transparent 76%);
+  filter:drop-shadow(0 0 7px #ffd16b) drop-shadow(0 0 17px rgba(255,150,44,.8));
+  animation:flicker .17s infinite alternate ease-in-out
 }
-.light .flame{
-  position:absolute;left:35px;top:18px;width:25px;height:46px;
-  transform-origin:50% 100%;
-  border-radius:48% 48% 56% 56%/62% 62% 38% 38%;
-  background:radial-gradient(ellipse at 50% 73%,#fffbd0 0 10%,#ffd872 22%,#ef8d31 48%,rgba(217,82,24,.35) 65%,transparent 75%);
-  filter:drop-shadow(0 0 7px #ffd05e) drop-shadow(0 0 15px rgba(242,142,42,.82));
-  animation:flicker .18s infinite alternate ease-in-out;
+.sconce .glow{
+  position:absolute;left:-29px;top:-34px;width:126px;height:125px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,190,75,.23),rgba(255,158,44,.07) 45%,transparent 72%);
+  animation:glow 1.25s infinite alternate ease-in-out
 }
 @keyframes flicker{
-  0%{transform:skewX(-3deg) scale(.95,1.06) rotate(-1deg)}
-  38%{transform:skewX(4deg) scale(1.04,.96) rotate(2deg)}
-  72%{transform:skewX(-4deg) scale(.93,1.09) rotate(-2deg)}
+  0%{transform:skewX(-3deg) scale(.96,1.05) rotate(-1deg)}
+  33%{transform:skewX(4deg) scale(1.04,.96) rotate(2deg)}
+  70%{transform:skewX(-4deg) scale(.93,1.08) rotate(-2deg)}
   100%{transform:skewX(2deg) scale(1.03,.97) rotate(1deg)}
 }
 @keyframes glow{from{opacity:.62;transform:scale(.94)}to{opacity:1;transform:scale(1.08)}}
 
-/* ---------- screen framework ---------- */
-.screen{
-  display:none;position:relative;z-index:10;
-  min-height:744px;padding:42px clamp(20px,5vw,66px) 72px;
-}
-.screen.active{display:flex;flex-direction:column;animation:fade .42s ease}
+.screen{display:none;position:relative;z-index:10;min-height:744px;padding:42px clamp(20px,5vw,64px) 72px}
+.screen.active{display:flex;flex-direction:column;animation:fade .4s ease}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-.eyebrow{
-  color:#d7b36c;text-transform:uppercase;
-  letter-spacing:.18em;font-size:.72rem;font-weight:800;
-  margin-bottom:8px;text-shadow:0 2px 5px #000;
-}
-h1,h2{
-  font-family:var(--serif);color:#f0d595;
-  text-shadow:0 3px 8px rgba(0,0,0,.85);
-}
-h1{font-size:clamp(1.9rem,4vw,2.75rem);margin:0 0 12px}
+.eyebrow{color:#e0ba72;text-transform:uppercase;letter-spacing:.18em;font-weight:800;font-size:.72rem;margin-bottom:8px;text-shadow:0 2px 4px #000}
+h1,h2{font-family:var(--serif);color:#f1d392;text-shadow:0 3px 6px #000}
+h1{font-size:clamp(1.9rem,4vw,2.7rem);margin:0 0 12px}
 h2{font-size:clamp(1.45rem,3vw,2rem);margin:0 0 16px}
 p{line-height:1.55}
 
-/* ---------- intro glass panel over image ---------- */
-.intro-grid{
-  display:grid;
-  grid-template-columns:minmax(260px,.85fr) minmax(330px,1.15fr);
-  gap:26px;
-  align-items:end;
-  margin-top:auto;
+.intro-panel{
+  width:min(500px,96%);align-self:flex-end;margin-top:18px;padding:22px 24px;
+  background:rgba(10,8,6,.82);border:1px solid rgba(186,135,61,.72);
+  box-shadow:0 14px 35px rgba(0,0,0,.48);backdrop-filter:blur(2px)
 }
-.intro-panel,.glass{
-  background:linear-gradient(180deg,rgba(12,8,6,.68),rgba(10,7,5,.9));
-  border:1px solid rgba(191,139,65,.72);
-  box-shadow:0 14px 35px rgba(0,0,0,.55),inset 0 0 28px rgba(255,219,145,.03);
-  backdrop-filter:blur(3px);
+.intro-panel p{color:#f1dfbf}
+.quote{
+  margin:0 0 17px;padding:14px 16px;border-left:3px solid #b9843e;
+  background:rgba(0,0,0,.22);font-family:var(--serif);font-style:italic;color:#f3dfbc;line-height:1.5
 }
-.intro-panel{padding:22px}
-.intro-panel blockquote{
-  margin:0 0 14px;padding:15px 17px;
-  background:rgba(245,226,190,.08);
-  border-left:4px solid #9f7338;
-  font-family:var(--serif);font-style:italic;line-height:1.56;color:#f3e4c8;
+.team-panel{
+  width:min(420px,96%);margin-top:auto;padding:14px 16px;
+  background:rgba(8,7,6,.84);border:1px solid #7f592a
 }
-.intro-copy{padding:24px}
-.intro-copy p{margin:0 0 12px}
-.team label{display:block;margin:16px 0 7px;font-size:.82rem;font-weight:700;color:#d4b06e}
-.team input{
-  width:100%;padding:11px 12px;
-  border:1px solid #8e672f;background:rgba(15,10,8,.88);color:#f0dfbd;
-  outline:none;
+.team-panel label{display:block;margin-bottom:7px;color:#e3be76;font-family:var(--serif);font-size:.88rem}
+.team-panel input,#codeInput{
+  width:100%;padding:11px 13px;border:1px solid #8f6932;background:#15110d;color:#f0dfbf;font:inherit
 }
-.team input:focus{border-color:#d5a95b;box-shadow:0 0 0 2px rgba(216,173,91,.14)}
 
-/* ---------- puzzle card ---------- */
 .card{
-  width:min(820px,100%);margin:0 auto 18px;padding:23px 25px;
-  background:
-    radial-gradient(circle at 14% 18%,rgba(255,255,255,.35),transparent 24%),
-    linear-gradient(135deg,#f3e6c6,#ddc59c);
-  color:var(--ink);border:1px solid #a77a3a;
-  box-shadow:0 16px 32px rgba(0,0,0,.55),inset 0 0 24px rgba(108,65,21,.14);
+  width:min(850px,100%);margin:0 auto 18px;padding:22px 24px;
+  background:linear-gradient(rgba(17,14,10,.94),rgba(9,8,7,.95));
+  color:#f0dfc0;border:1px solid #89622e;
+  box-shadow:0 15px 32px rgba(0,0,0,.58);backdrop-filter:blur(3px)
 }
-.card p{color:#2d2118}
 .card blockquote{
-  margin:12px 0 18px;padding:15px 18px;
-  border-left:4px solid #7c5528;background:rgba(255,255,255,.28);
-  color:#2e2118;font-family:var(--serif);font-style:italic;line-height:1.55;
+  margin:12px 0 18px;padding:14px 16px;border:1px solid #5e4527;border-left:4px solid #aa7838;
+  background:#100d0a;color:#ecd8b6;font-family:var(--serif);font-style:italic;line-height:1.55
 }
 .options{display:flex;flex-direction:column;gap:9px;margin-top:14px}
 .option{
-  width:100%;padding:12px 14px;text-align:left;
-  border:1px solid #9b713b;border-radius:4px;
-  background:linear-gradient(#faf0d9,#e5d1ac);
-  color:#2a1e15;cursor:pointer;
-  box-shadow:0 3px 6px rgba(0,0,0,.14);
-  transition:.18s ease;
+  width:100%;padding:12px 14px;text-align:left;border:1px solid #5f492d;border-radius:4px;
+  background:#11100c;color:#ebdabd;font:inherit;cursor:pointer;transition:.18s ease
 }
-.option:hover:not(:disabled),.option:focus-visible:not(:disabled){
-  transform:translateX(4px);outline:2px solid #c89542
-}
-.option.correct{background:#d7e6ce;border-color:#4e773f}
-.option.incorrect{background:#ead0ce;border-color:#8c3f3f;opacity:.63;text-decoration:line-through}
+.option:hover:not(:disabled){transform:translateX(4px);border-color:#ba8742;outline:1px solid #ba8742}
+.option.correct{background:#152415;border-color:#66834a;color:#e8d98e}
+.option.incorrect{background:#261312;border-color:#793832;opacity:.64;text-decoration:line-through}
 .option:disabled{cursor:default}
-.feedback{
-  width:min(820px,100%);min-height:24px;margin:0 auto 5px;font-weight:750;
-  text-shadow:0 2px 5px #000;
-}
-.feedback.good{color:#a8dc8a}.feedback.bad{color:#f1a4a4}
-.hint-toggle{
-  width:min(820px,100%);margin:0 auto;padding:5px 0;text-align:left;
-  background:none;border:0;color:#ddb96e;text-decoration:underline;cursor:pointer;
-  text-shadow:0 2px 4px #000;
-}
-.hint-box{
-  display:none;width:min(820px,100%);margin:7px auto 12px;padding:11px 13px;
-  border:1px dashed #9e743c;background:rgba(19,12,9,.9);color:#efdcbb;font-size:.86rem
-}
+.feedback{width:min(850px,100%);margin:0 auto 5px;min-height:24px;font-weight:700}
+.feedback.good{color:#a9d787}.feedback.bad{color:#f0a0a0}
+.hint-toggle{width:min(850px,100%);margin:0 auto;padding:5px 0;text-align:left;background:none;border:0;color:#d6ad62;text-decoration:underline;cursor:pointer}
+.hint-box{display:none;width:min(850px,100%);margin:7px auto 10px;padding:11px 13px;border:1px dashed #8b622e;background:rgba(9,8,7,.92);color:#ead6b3;font-size:.86rem}
 .hint-box.show{display:block}
 
-/* ---------- brass lock ---------- */
-.lock-reveal{
-  display:none;width:min(820px,100%);margin:12px auto 0;
-  min-height:225px;align-items:center;justify-content:center;gap:30px;
-}
-.lock-reveal.show{display:flex;animation:fade .4s ease}
-.brass-lock{
-  width:182px;height:190px;position:relative;
-  filter:drop-shadow(0 13px 13px rgba(0,0,0,.52));
-}
+/* Brass lock reveal */
+.lock-reveal{display:none;width:min(850px,100%);margin:10px auto 0;min-height:220px;align-items:center;justify-content:center;gap:30px}
+.lock-reveal.show{display:flex;animation:fade .35s ease}
+.brass-lock{position:relative;width:178px;height:184px;filter:drop-shadow(0 12px 12px rgba(0,0,0,.55))}
 .shackle{
-  position:absolute;left:37px;top:0;width:108px;height:98px;
-  border:19px solid #99682d;border-bottom:0;
-  border-radius:60px 60px 0 0;
-  box-shadow:inset 0 0 0 4px #d3a85a,0 0 0 2px #3d260f;
-  transform-origin:80% 100%;
+  position:absolute;left:36px;top:0;width:106px;height:96px;border:19px solid #9d6b2f;border-bottom:0;
+  border-radius:60px 60px 0 0;box-shadow:inset 0 0 0 4px #d7ad60,0 0 0 2px #412710;transform-origin:80% 100%
 }
-.lock-reveal.show .shackle{animation:shackleOpen .55s .12s ease forwards}
-@keyframes shackleOpen{to{transform:translateY(-8px) rotate(18deg)}}
+.lock-reveal.show .shackle{animation:shackle .56s .12s ease forwards}
+@keyframes shackle{to{transform:translateY(-9px) rotate(19deg)}}
 .lock-body{
-  position:absolute;left:18px;right:18px;bottom:0;height:130px;
-  border-radius:26px 26px 36px 36px;
-  background:radial-gradient(circle at 35% 22%,#e3bd71,#b47a30 38%,#784b1d 69%,#462a12 100%);
-  border:3px solid #d0a05a;
-  box-shadow:inset 0 0 18px rgba(0,0,0,.45),0 0 0 2px #3b240f;
+  position:absolute;left:17px;right:17px;bottom:0;height:128px;border-radius:26px 26px 36px 36px;
+  background:radial-gradient(circle at 35% 20%,#e4c076,#b37931 40%,#764a1c 70%,#452912);
+  border:3px solid #d2a35a;box-shadow:inset 0 0 19px rgba(0,0,0,.46),0 0 0 2px #39220f
 }
-.lock-title{
-  position:absolute;top:16px;left:0;right:0;text-align:center;
-  color:#2d1b0e;font-family:var(--serif);font-size:.77rem;font-weight:bold;
-}
+.lock-title{position:absolute;top:16px;left:0;right:0;text-align:center;color:#2b190d;font-family:var(--serif);font-weight:bold;font-size:.77rem}
 .digit-window{
   position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
-  width:66px;height:66px;border:4px solid #38210f;background:#17100b;
-  box-shadow:inset 0 0 10px #000,0 0 0 2px #c69a52;
-  display:flex;align-items:center;justify-content:center;
+  width:66px;height:66px;border:4px solid #3b2411;background:#1b120d;
+  box-shadow:inset 0 0 10px #000,0 0 0 2px #c89b55;
+  display:flex;align-items:center;justify-content:center
 }
-.digit-window span{
-  font-family:var(--serif);font-size:2.55rem;color:#f1d48e;text-shadow:0 0 10px rgba(242,213,144,.65)
-}
-.lock-flash{
-  position:absolute;inset:-16px;opacity:0;pointer-events:none;border-radius:28px;
-}
-.lock-reveal.show .lock-flash{animation:flash .42s .4s ease forwards}
-@keyframes flash{
-  0%{opacity:0;box-shadow:none}
-  50%{opacity:1;box-shadow:0 0 42px rgba(239,194,104,.72)}
-  100%{opacity:0}
-}
-.lock-copy{max-width:270px;color:#efdbb7;line-height:1.45;text-shadow:0 2px 4px #000}
-.lock-copy strong{display:block;color:#e2bd75;font-family:var(--serif);font-size:1.16rem;margin-bottom:5px}
+.digit-window span{font-family:var(--serif);font-size:2.5rem;color:#f2d590;text-shadow:0 0 10px rgba(242,213,144,.6)}
+.lock-copy{max-width:270px;color:#ecd9b7;line-height:1.45}
+.lock-copy strong{display:block;color:#e1bd74;font-family:var(--serif);font-size:1.15rem;margin-bottom:5px}
 
-/* ---------- buttons ---------- */
-.btn-row{
-  width:min(820px,100%);margin:auto auto 0;padding-top:20px;
-  display:flex;justify-content:space-between;gap:12px;
-}
-.btn{
-  border:1px solid #8e632f;border-radius:4px;
-  background:linear-gradient(#3a1b15,#24110d);
-  color:#efd7ad;padding:11px 18px;font-weight:750;cursor:pointer;
-  box-shadow:0 4px 10px rgba(0,0,0,.35);
-}
-.btn:hover:not(:disabled){border-color:#c18b44;filter:brightness(1.08)}
+.btn-row{width:min(850px,100%);margin:auto auto 0;padding-top:20px;display:flex;justify-content:space-between;gap:12px}
+.btn{border:1px solid #8e632f;background:#28140f;color:#ebd4ad;padding:11px 18px;border-radius:4px;font:inherit;font-weight:700;cursor:pointer}
+.btn.gold{background:linear-gradient(#754024,#4a2217);color:#f2d59d;border-color:#b27c3e}
 .btn:disabled{opacity:.38;cursor:not-allowed}
-
-/* ---------- final code ---------- */
-.final-panel{
-  width:min(690px,100%);margin:auto auto 0;padding:24px;
-  background:linear-gradient(180deg,rgba(12,8,6,.72),rgba(9,6,5,.94));
-  border:1px solid #8b642f;
-  box-shadow:0 15px 35px rgba(0,0,0,.58);
-  backdrop-filter:blur(3px);
-}
-.final-panel p{text-align:center;margin:0 0 14px}
 #codeInput{
-  width:100%;max-width:420px;display:block;margin:0 auto 12px;
-  padding:12px 14px;text-align:center;
-  font-family:var(--serif);font-size:1.9rem;letter-spacing:.5em;
-  border:2px solid #9c7138;background:#f0e0bc;color:#2b1c13;
+  max-width:430px;align-self:center;margin:8px auto 12px;text-align:center;
+  font-family:var(--serif);font-size:1.9rem;letter-spacing:.5em
+}
+.codebook{
+  width:min(680px,100%);margin:0 auto 18px;padding:12px 15px;text-align:center;
+  border:1px solid #8d652e;background:rgba(20,13,10,.88);color:#ecd9b7
 }
 
-/* ---------- anti-guess ---------- */
+/* Guessing intervention */
 .warning{
-  position:absolute;inset:0;z-index:100;display:none;
-  align-items:center;justify-content:center;padding:20px;
-  background:rgba(0,0,0,.87);backdrop-filter:blur(4px);
+  position:absolute;inset:0;z-index:100;display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.86);backdrop-filter:blur(3px);padding:20px
 }
 .warning.show{display:flex}
 .warning-card{
-  width:min(580px,92%);padding:24px;text-align:center;
-  background:linear-gradient(#2a1718,#100909);
-  border:1px solid #8c4935;box-shadow:0 0 40px rgba(140,45,32,.34);
+  width:min(560px,92%);padding:24px;text-align:center;
+  background:linear-gradient(#261617,#100a0a);border:1px solid #8b4a35;
+  box-shadow:0 0 38px rgba(132,46,32,.35)
 }
-.portrait{
-  position:relative;width:132px;height:162px;margin:0 auto 16px;
-  border:9px ridge #735029;
-  background:
-    radial-gradient(ellipse at 50% 30%,#766758 0 14%,transparent 15%),
-    radial-gradient(ellipse at 50% 61%,#443139 0 28%,transparent 29%),
-    linear-gradient(#251922,#0b090b);
-}
-.eye{
-  position:absolute;top:49px;width:18px;height:8px;border-radius:50%;
-  background:#e4cf9e;box-shadow:0 0 8px rgba(230,208,158,.8);
-  animation:eye 1s alternate infinite;
-}
-.eye.left{left:38px}.eye.right{right:38px}
-.eye::after{content:"";position:absolute;left:6px;top:1px;width:6px;height:6px;border-radius:50%;background:#1c0a0a}
-@keyframes eye{from{filter:brightness(.8)}to{filter:brightness(1.45)}}
-.warning h3{font-family:var(--serif);color:#e4bd77;font-size:1.5rem;margin:0 0 8px}
-.warning p{margin:6px 0;color:#ecd9b9}
-.count{margin-top:10px;color:#e2aa80;font-family:var(--serif)}
-.dim .scene::before{background:rgba(0,0,0,.8)!important}
-.dim .flame{opacity:.05!important}
+.warning-card h3{font-family:var(--serif);color:#e3bc77;font-size:1.5rem;margin:0 0 8px}
+.warning-card p{margin:6px 0;color:#ead7b8}
+.count{margin-top:10px;color:#e0a77d;font-family:var(--serif)}
+.dim .room::before{background:rgba(0,0,0,.78)!important}
+.dim .flame{opacity:.08}
 
-/* ---------- parlor image reveal ---------- */
-#success{padding:0;background:#090706}
-.parlor-scene{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(rgba(8,5,4,.06),rgba(8,5,4,.38)),
-    url("assets/parlor.jpg") center 34% / cover no-repeat;
+/* ===== Animated opening sequence ===== */
+.door-transition{
+  position:absolute;inset:0;z-index:70;display:none;overflow:hidden;
+  background:#090706;perspective:1500px
 }
-.parlor-scene::before{
+.door-transition.show{display:block}
+.transition-glow{
+  position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,205,116,.55),transparent 38%);
+  opacity:0;animation:lightBurst 2.2s ease forwards
+}
+@keyframes lightBurst{0%{opacity:0}35%{opacity:.2}75%{opacity:1}100%{opacity:.35}}
+.door-panel{
+  position:absolute;top:0;bottom:0;width:50%;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.35),transparent 20% 80%,rgba(0,0,0,.32)),
+    repeating-linear-gradient(90deg,#3c2011 0 56px,#512b16 56px 61px,#31190d 61px 116px);
+  border:12px solid #2b160c;box-shadow:inset 0 0 38px rgba(0,0,0,.72);
+}
+.door-panel.left{left:0;transform-origin:left center}
+.door-panel.right{right:0;transform-origin:right center}
+.door-transition.show .door-panel.left{animation:openL 2.1s .3s cubic-bezier(.58,0,.18,1) forwards}
+.door-transition.show .door-panel.right{animation:openR 2.1s .3s cubic-bezier(.58,0,.18,1) forwards}
+@keyframes openL{to{transform:perspective(1400px) rotateY(78deg) translateX(-6%)}}
+@keyframes openR{to{transform:perspective(1400px) rotateY(-78deg) translateX(6%)}}
+.transition-copy{
+  position:absolute;left:50%;bottom:9%;transform:translateX(-50%);
+  color:#f2d28b;font-family:var(--serif);font-size:1.25rem;letter-spacing:.05em;
+  text-shadow:0 3px 6px #000;opacity:0;animation:transitionText 2.1s .8s forwards
+}
+@keyframes transitionText{0%{opacity:0}60%{opacity:1}100%{opacity:0}}
+
+/* ===== FINAL PARLOR: approved generated artwork as background ===== */
+#screen-success{
+  padding:0;overflow:hidden;
+  background:
+    linear-gradient(rgba(6,5,4,.14),rgba(6,5,4,.34)),
+    url("assets/parlor-final.jpg") center center/cover no-repeat;
+}
+#screen-success::before{
   content:"";position:absolute;inset:0;z-index:1;
   background:
-    radial-gradient(ellipse at 50% 40%,transparent 30%,rgba(0,0,0,.15) 58%,rgba(0,0,0,.56) 100%);
+    radial-gradient(ellipse at 50% 48%,transparent 32%,rgba(0,0,0,.22) 72%,rgba(0,0,0,.56) 100%);
 }
-.parlor-fire{
-  position:absolute;z-index:3;
-  left:50%;top:43%;transform:translate(-50%,-50%);
-  width:190px;height:135px;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 70%,rgba(255,243,170,.55),rgba(247,147,48,.22) 28%,transparent 70%);
-  filter:blur(2px);
-  animation:fire 1.25s infinite alternate ease-in-out;
+.parlor-firelight{
+  position:absolute;z-index:2;left:50%;top:50%;width:370px;height:260px;transform:translate(-50%,-50%);
+  border-radius:50%;background:radial-gradient(circle,rgba(255,177,75,.13),transparent 68%);
+  animation:parlorGlow 1.45s infinite alternate ease-in-out
 }
-@keyframes fire{from{opacity:.62;transform:translate(-50%,-50%) scale(.94)}to{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
-
-.magic-orbit{
-  position:absolute;z-index:4;left:50%;top:51%;
-  width:520px;max-width:72vw;height:250px;
-  transform:translate(-50%,-50%);
-  border:1px solid rgba(242,208,127,.32);border-radius:50%;
-  box-shadow:0 0 28px rgba(239,194,99,.12),inset 0 0 28px rgba(239,194,99,.07);
-  opacity:0;animation:orbit .9s 1.5s forwards,pulse 3s 2.4s infinite ease-in-out;
+@keyframes parlorGlow{from{opacity:.55;transform:translate(-50%,-50%) scale(.94)}to{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+.magic-word{
+  position:absolute;z-index:5;color:#f4d58c;font-family:var(--serif);font-size:clamp(.9rem,2vw,1.2rem);
+  font-weight:bold;letter-spacing:.13em;text-shadow:0 0 8px #c79542,0 2px 4px #000;
+  opacity:0;animation:wordIn .8s forwards,floatWord 4.5s ease-in-out infinite
 }
-@keyframes orbit{to{opacity:1}}
-@keyframes pulse{0%,100%{box-shadow:0 0 18px rgba(239,194,99,.08)}50%{box-shadow:0 0 42px rgba(239,194,99,.24)}}
-
-.final-message{
-  position:absolute;z-index:8;left:50%;bottom:22px;transform:translateX(-50%);
-  width:min(820px,92%);padding:17px 20px;text-align:center;
-  background:linear-gradient(180deg,rgba(10,7,5,.65),rgba(9,6,5,.94));
-  border:1px solid #87602c;box-shadow:0 12px 30px rgba(0,0,0,.55);
-  opacity:0;animation:finalIn 1s 2.2s forwards;
+.w1{left:8%;top:21%;animation-delay:2.7s,3.5s}
+.w2{right:8%;top:21%;animation-delay:3.2s,4s}
+.w3{left:7%;bottom:24%;animation-delay:3.7s,4.5s}
+.w4{right:7%;bottom:24%;animation-delay:4.2s,5s}
+@keyframes wordIn{to{opacity:1}}
+@keyframes floatWord{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.success-panel{
+  position:absolute;z-index:6;left:50%;bottom:16px;transform:translateX(-50%);
+  width:min(820px,92%);padding:16px 20px;text-align:center;
+  background:rgba(10,8,6,.79);border:1px solid rgba(191,140,61,.65);
+  box-shadow:0 10px 30px rgba(0,0,0,.48);backdrop-filter:blur(2px);
+  opacity:0;animation:successIn 1s 4.7s forwards
 }
-@keyframes finalIn{to{opacity:1}}
-.final-message h1{font-size:2rem;margin:0 0 5px}
-.final-message .ethic{
-  color:#f0cf87;font-family:var(--serif);font-size:1.2rem;
-  font-weight:bold;letter-spacing:.08em;
-}
-.final-message p{margin:5px 0}
-.completion{
-  display:inline-block;margin-top:8px;padding:7px 12px;
-  border:1px solid #9b7136;background:#120d0a;color:#e8c77f;
-  font-family:var(--serif);
+@keyframes successIn{to{opacity:1}}
+.success-panel h1{margin:0 0 7px;font-size:clamp(1.7rem,3vw,2.25rem)}
+.ethic{font-family:var(--serif);color:#f2cf85;font-size:1.18rem;font-weight:bold;letter-spacing:.08em}
+.success-panel p{margin:5px 0;color:#f2e3c8}
+.success-code{
+  display:inline-block;margin-top:8px;padding:7px 13px;border:1px solid #9a7136;
+  background:#120d0a;color:#e8c77f;font-family:var(--serif);letter-spacing:.07em
 }
 
-/* ---------- accessibility/mobile ---------- */
-.sr-only{
-  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0
-}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important}
-}
-@media(max-width:760px){
-  #app{min-height:900px}
-  .scene,.screen{min-height:824px}
-  .topbar{padding:12px 14px}
-  .brand{font-size:1.05rem}
-  .progress .p{width:28px;height:28px;font-size:.75rem}
-  .screen{padding:30px 18px 64px}
-  .intro-grid{grid-template-columns:1fr}
-  .lock-reveal{flex-direction:column}
-  .btn-row{flex-wrap:wrap}
-  .btn{flex:1;min-width:130px}
-  .light{transform:scale(.82)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important}}
+@media(max-width:700px){
+  #app{min-height:900px}.room,.screen{min-height:824px}.topbar{padding:12px 14px}.brand{font-size:1.05rem}
+  .screen{padding:30px 18px 64px}.lock-reveal{flex-direction:column}.btn-row{flex-wrap:wrap}.btn{flex:1;min-width:130px}
+  .progress .dot{width:28px;height:28px;font-size:.75rem}.sconce{transform:scale(.8)}
+  .magic-word{font-size:.78rem}.w1,.w3{left:4%}.w2,.w4{right:4%}
 }
 </style>
 </head>
@@ -425,50 +290,42 @@ p{line-height:1.55}
 <div id="app">
 
 <header class="topbar">
-  <div class="brand">
-    The House of Rhetoric
+  <div class="brand">The House of Rhetoric
     <small>ENGL 1301 · Rhetoric as an Ethical Art</small>
   </div>
   <div class="progress" aria-label="Puzzle progress">
-    <div class="p" data-lock="1">1</div>
-    <div class="p" data-lock="2">2</div>
-    <div class="p" data-lock="3">3</div>
-    <div class="p" data-lock="4">4</div>
+    <div class="dot" data-lock="1">1</div>
+    <div class="dot" data-lock="2">2</div>
+    <div class="dot" data-lock="3">3</div>
+    <div class="dot" data-lock="4">4</div>
   </div>
 </header>
 
-<div class="scene" id="scene">
-  <div class="light left"><div class="glow"></div><div class="flame"></div></div>
-  <div class="light right"><div class="glow"></div><div class="flame"></div></div>
+<div class="room">
+  <div class="sconce left"><div class="glow"></div><div class="flame"></div><div class="candle"></div><div class="stem"></div><div class="base"></div></div>
+  <div class="sconce right"><div class="glow"></div><div class="flame"></div><div class="candle"></div><div class="stem"></div><div class="base"></div></div>
 
-  <!-- INTRO -->
   <section class="screen active" id="intro">
     <div class="eyebrow">Before You Begin</div>
     <h1>You've arrived late to the parlor.</h1>
 
-    <div class="intro-grid">
-      <div class="intro-panel">
-        <blockquote>
-          “Imagine that you enter a parlor. You come late. When you arrive, others have long preceded you, and they are engaged in a heated discussion... You listen for a while, until you decide that you have caught the tenor of the argument; then you put in your oar.”
-        </blockquote>
-        <div class="team">
-          <label for="teamName">Group name or table number (optional)</label>
-          <input id="teamName" type="text" placeholder="Example: Table 3">
-        </div>
-      </div>
+    <div class="intro-panel">
+      <div class="quote">“Imagine that you enter a parlor. You come late. When you arrive, others have long preceded you, and they are engaged in a heated discussion... You listen for a while, until you decide that you have caught the tenor of the argument; then you put in your oar.”</div>
+      <p>Kenneth Burke's parlor is already alive with conversation. You do not begin it. You enter it.</p>
+      <p>To enter, your group must demonstrate that you understand rhetoric as an <strong>ethical art</strong>: quoting accurately, paraphrasing honestly, summarizing without distortion, and citing sources correctly.</p>
+      <p>Four brass locks guard the door. Each one reveals a digit. The house assigns a different combination to each group session.</p>
+    </div>
 
-      <div class="intro-copy glass">
-        <p>The conversation is already underway. You do not begin it. You enter it.</p>
-        <p>To enter, your group must demonstrate that you understand rhetoric as an <strong>ethical art</strong>: quoting accurately, paraphrasing honestly, summarizing without distortion, and citing sources correctly.</p>
-        <p>Four brass locks guard the door. Each solved lock reveals one digit. The house assigns a different combination to each group session.</p>
-        <div class="btn-row" style="width:100%;justify-content:flex-end;padding-top:10px">
-          <button class="btn" onclick="goTo('p1')">Enter the Hallway →</button>
-        </div>
-      </div>
+    <div class="team-panel">
+      <label for="teamName">Group name or table number (optional)</label>
+      <input type="text" id="teamName" placeholder="Example: Table 3">
+    </div>
+
+    <div class="btn-row" style="justify-content:flex-end">
+      <button class="btn gold" onclick="goTo('p1')">Enter the Hallway →</button>
     </div>
   </section>
 
-  <!-- PUZZLE 1 -->
   <section class="screen" id="p1">
     <div class="eyebrow">Lock I · The Quotation</div>
     <h2>The Dropped Quote</h2>
@@ -481,25 +338,13 @@ p{line-height:1.55}
     <div class="feedback" id="feedback-p1" aria-live="polite"></div>
     <button class="hint-toggle" onclick="toggleHint('hint-p1')">Need a hint?</button>
     <div class="hint-box" id="hint-p1">Think about what readers need before a quotation appears. How do they know whose words they are reading and why the quotation belongs in the sentence?</div>
-
     <div class="lock-reveal" id="reveal-p1">
-      <div class="brass-lock">
-        <div class="lock-flash"></div><div class="shackle"></div>
-        <div class="lock-body">
-          <div class="lock-title">LOCK I · CLICKED OPEN</div>
-          <div class="digit-window"><span id="digit-p1">?</span></div>
-        </div>
-      </div>
+      <div class="brass-lock"><div class="shackle"></div><div class="lock-body"><div class="lock-title">LOCK I · CLICKED OPEN</div><div class="digit-window"><span id="digit-p1">?</span></div></div></div>
       <div class="lock-copy"><strong>CLICK.</strong>The brass shackle springs open and your first number appears.</div>
     </div>
-
-    <div class="btn-row">
-      <button class="btn" onclick="goTo('intro')">← Back</button>
-      <button class="btn" id="next-p1" disabled onclick="goTo('p2')">Next Lock →</button>
-    </div>
+    <div class="btn-row"><button class="btn" onclick="goTo('intro')">← Back</button><button class="btn gold" id="next-p1" disabled onclick="goTo('p2')">Next Lock →</button></div>
   </section>
 
-  <!-- PUZZLE 2 -->
   <section class="screen" id="p2">
     <div class="eyebrow">Lock II · The Paraphrase</div>
     <h2>The Copied Rewrite</h2>
@@ -511,26 +356,14 @@ p{line-height:1.55}
     </div>
     <div class="feedback" id="feedback-p2" aria-live="polite"></div>
     <button class="hint-toggle" onclick="toggleHint('hint-p2')">Need a hint?</button>
-    <div class="hint-box" id="hint-p2">A genuine paraphrase changes more than vocabulary. Look for a version that genuinely re-expresses the idea in a new sentence structure.</div>
-
+    <div class="hint-box" id="hint-p2">A real paraphrase changes more than vocabulary. Look for a version that genuinely re-expresses the idea in a new sentence structure.</div>
     <div class="lock-reveal" id="reveal-p2">
-      <div class="brass-lock">
-        <div class="lock-flash"></div><div class="shackle"></div>
-        <div class="lock-body">
-          <div class="lock-title">LOCK II · CLICKED OPEN</div>
-          <div class="digit-window"><span id="digit-p2">?</span></div>
-        </div>
-      </div>
+      <div class="brass-lock"><div class="shackle"></div><div class="lock-body"><div class="lock-title">LOCK II · CLICKED OPEN</div><div class="digit-window"><span id="digit-p2">?</span></div></div></div>
       <div class="lock-copy"><strong>CLICK.</strong>Another brass lock swings open.</div>
     </div>
-
-    <div class="btn-row">
-      <button class="btn" onclick="goTo('p1')">← Back</button>
-      <button class="btn" id="next-p2" disabled onclick="goTo('p3')">Next Lock →</button>
-    </div>
+    <div class="btn-row"><button class="btn" onclick="goTo('p1')">← Back</button><button class="btn gold" id="next-p2" disabled onclick="goTo('p3')">Next Lock →</button></div>
   </section>
 
-  <!-- PUZZLE 3 -->
   <section class="screen" id="p3">
     <div class="eyebrow">Lock III · The Summary</div>
     <h2>The Distorted Message</h2>
@@ -543,25 +376,13 @@ p{line-height:1.55}
     <div class="feedback" id="feedback-p3" aria-live="polite"></div>
     <button class="hint-toggle" onclick="toggleHint('hint-p3')">Need a hint?</button>
     <div class="hint-box" id="hint-p3">Pay attention to the word <strong>never</strong>. Does Lunsford condemn rhetoric itself, or distinguish between ethical and unethical uses of it?</div>
-
     <div class="lock-reveal" id="reveal-p3">
-      <div class="brass-lock">
-        <div class="lock-flash"></div><div class="shackle"></div>
-        <div class="lock-body">
-          <div class="lock-title">LOCK III · CLICKED OPEN</div>
-          <div class="digit-window"><span id="digit-p3">?</span></div>
-        </div>
-      </div>
+      <div class="brass-lock"><div class="shackle"></div><div class="lock-body"><div class="lock-title">LOCK III · CLICKED OPEN</div><div class="digit-window"><span id="digit-p3">?</span></div></div></div>
       <div class="lock-copy"><strong>CLICK.</strong>The third lock releases with a heavy metallic snap.</div>
     </div>
-
-    <div class="btn-row">
-      <button class="btn" onclick="goTo('p2')">← Back</button>
-      <button class="btn" id="next-p3" disabled onclick="goTo('p4')">Final Lock →</button>
-    </div>
+    <div class="btn-row"><button class="btn" onclick="goTo('p2')">← Back</button><button class="btn gold" id="next-p3" disabled onclick="goTo('p4')">Final Lock →</button></div>
   </section>
 
-  <!-- PUZZLE 4 -->
   <section class="screen" id="p4">
     <div class="eyebrow">Lock IV · The Citation</div>
     <h2>The Citation Seal</h2>
@@ -573,60 +394,40 @@ p{line-height:1.55}
     <div class="feedback" id="feedback-p4" aria-live="polite"></div>
     <button class="hint-toggle" onclick="toggleHint('hint-p4')">Need a hint?</button>
     <div class="hint-box" id="hint-p4">MLA normally uses the author's last name and page number without a comma and without “p.”</div>
-
     <div class="lock-reveal" id="reveal-p4">
-      <div class="brass-lock">
-        <div class="lock-flash"></div><div class="shackle"></div>
-        <div class="lock-body">
-          <div class="lock-title">LOCK IV · CLICKED OPEN</div>
-          <div class="digit-window"><span id="digit-p4">?</span></div>
-        </div>
-      </div>
+      <div class="brass-lock"><div class="shackle"></div><div class="lock-body"><div class="lock-title">LOCK IV · CLICKED OPEN</div><div class="digit-window"><span id="digit-p4">?</span></div></div></div>
       <div class="lock-copy"><strong>CLICK.</strong>The final lock opens. You have all four numbers.</div>
     </div>
-
-    <div class="btn-row">
-      <button class="btn" onclick="goTo('p3')">← Back</button>
-      <button class="btn" id="next-p4" disabled onclick="goTo('final')">Return to the Parlor →</button>
-    </div>
+    <div class="btn-row"><button class="btn" onclick="goTo('p3')">← Back</button><button class="btn gold" id="next-p4" disabled onclick="goTo('final')">Return to the Parlor →</button></div>
   </section>
 
-  <!-- FINAL -->
   <section class="screen" id="final">
     <div class="eyebrow">The Parlor Door</div>
     <h1>Enter your four-digit code.</h1>
-    <div class="final-panel">
-      <p>Enter the numbers in order: <strong>Lock I → Lock II → Lock III → Lock IV</strong>.</p>
-      <label class="sr-only" for="codeInput">Four-digit code</label>
-      <input id="codeInput" type="text" maxlength="4" inputmode="numeric" autocomplete="off" placeholder="— — — —">
-      <div class="feedback" id="feedback-final" style="text-align:center" aria-live="polite"></div>
-      <div class="btn-row" style="width:100%;justify-content:center;padding-top:6px">
-        <button class="btn" onclick="checkCode()">Open the Door</button>
-      </div>
+    <div class="codebook">Enter the numbers in order: <strong>Lock I → Lock II → Lock III → Lock IV</strong>.</div>
+    <label class="sr-only" for="codeInput">Four-digit code</label>
+    <input id="codeInput" type="text" maxlength="4" inputmode="numeric" autocomplete="off" placeholder="— — — —">
+    <div class="feedback" id="feedback-final" style="text-align:center" aria-live="polite"></div>
+    <div class="btn-row" style="justify-content:center"><button class="btn gold" onclick="checkCode()">Open the Door</button></div>
+  </section>
+
+  <section class="screen" id="screen-success">
+    <div class="parlor-firelight"></div>
+    <div class="magic-word w1">AUDIENCE</div>
+    <div class="magic-word w2">PURPOSE</div>
+    <div class="magic-word w3">LANGUAGE</div>
+    <div class="magic-word w4">RESPONSE</div>
+    <div class="success-panel">
+      <h1>You've entered the conversation.</h1>
+      <div class="ethic">RHETORIC IS AN ETHICAL ART</div>
+      <p>The conversation was already underway when you arrived. Listen first. Understand the audience and purpose. Choose language deliberately. Then contribute responsibly.</p>
+      <p><em>Then put in your oar.</em></p>
+      <div class="success-code" id="completion"></div>
     </div>
   </section>
 
-  <!-- SUCCESS -->
-  <section class="screen" id="success">
-    <div class="parlor-scene">
-      <div class="parlor-fire"></div>
-      <div class="magic-orbit"></div>
-      <div class="final-message">
-        <h1>You've entered the conversation.</h1>
-        <div class="ethic">RHETORIC IS AN ETHICAL ART</div>
-        <p>The conversation was already underway when you arrived. Listen first. Understand the audience and purpose. Choose language deliberately. Then contribute responsibly.</p>
-        <p><em>Then put in your oar.</em></p>
-        <div class="completion" id="completion"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ANTI-GUESS -->
   <div class="warning" id="warning" role="dialog" aria-modal="true" aria-labelledby="warningTitle">
     <div class="warning-card">
-      <div class="portrait" aria-hidden="true">
-        <div class="eye left"></div><div class="eye right"></div>
-      </div>
       <h3 id="warningTitle">The house notices.</h3>
       <p>Two quick wrong choices look more like guessing than discussion.</p>
       <p><strong>Talk through the evidence together before you try again.</strong></p>
@@ -634,47 +435,38 @@ p{line-height:1.55}
     </div>
   </div>
 
+  <div class="door-transition" id="doorTransition" aria-hidden="true">
+    <div class="transition-glow"></div>
+    <div class="door-panel left"></div>
+    <div class="door-panel right"></div>
+    <div class="transition-copy">The door swings open. The conversation is already underway...</div>
+  </div>
 </div>
 </div>
 
 <script>
 const puzzles={
-  p1:{
-    options:[
-      "It has no signal phrase and no citation—the quotation is simply dropped into the student's sentence.",
-      "The student's sentence is too short to be appropriate for an academic essay.",
-      "The student should use past tense rather than present tense.",
-      "Direct quotations should always be paraphrased instead."
-    ],
-    correct:0
-  },
-  p2:{
-    options:[
-      "We must comprehend rhetoric both to share our own moral messages and to identify and oppose immoral messages that others try to use against us.",
-      "Understanding rhetoric helps us communicate responsibly while also making us better able to recognize when someone is trying to manipulate an audience.",
-      "we need to understand rhetoric both to communicate our own ethical messages and to be able to recognize and resist unethical messages that others attempt to use against us.",
-      "We need to understand rhetoric both to communicate our own ethical messages and resist unethical ones."
-    ],
-    correct:1
-  },
-  p3:{
-    options:[
-      "Nothing. The summary accurately represents the author's main claim.",
-      "It turns the author's nuanced claim into an absolute one. Lunsford argues that rhetoric can be used ethically or unethically, not that persuasion should never be used.",
-      "It contains too few direct quotations from the original passage.",
-      "Its only problem is that the MLA citation is missing."
-    ],
-    correct:1
-  },
-  p4:{
-    options:[
-      "(Lunsford, 14)",
-      "(Lunsford p. 14)",
-      "(Lunsford 14)",
-      "(14, Lunsford)"
-    ],
-    correct:2
-  }
+  p1:{options:[
+    "It has no signal phrase and no citation—the quotation is simply dropped into the student's sentence.",
+    "The student's sentence is too short to be appropriate for an academic essay.",
+    "The student should use past tense rather than present tense.",
+    "Direct quotations should always be paraphrased instead."
+  ],correct:0},
+  p2:{options:[
+    "We must comprehend rhetoric both to share our own moral messages and to identify and oppose immoral messages that others try to use against us.",
+    "Understanding rhetoric helps us communicate responsibly while also making us better able to recognize when someone is trying to manipulate an audience.",
+    "we need to understand rhetoric both to communicate our own ethical messages and to be able to recognize and resist unethical messages that others attempt to use against us.",
+    "We need to understand rhetoric both to communicate our own ethical messages and resist unethical ones."
+  ],correct:1},
+  p3:{options:[
+    "Nothing. The summary accurately represents the author's main claim.",
+    "It turns the author's nuanced claim into an absolute one. Lunsford argues that rhetoric can be used ethically or unethically, not that persuasion should never be used.",
+    "It contains too few direct quotations from the original passage.",
+    "Its only problem is that the MLA citation is missing."
+  ],correct:1},
+  p4:{options:[
+    "(Lunsford, 14)","(Lunsford p. 14)","(Lunsford 14)","(14, Lunsford)"
+  ],correct:2}
 };
 
 const state={
@@ -692,135 +484,99 @@ function rand(max){
 }
 function createCode(){
   const d=[];
-  while(d.length<4){
-    const n=rand(10);
-    if(!d.includes(n))d.push(n);
-  }
+  while(d.length<4){const n=rand(10);if(!d.includes(n))d.push(n)}
   return d;
 }
 function initCode(){
-  const saved=sessionStorage.getItem("rhetoric-code-v3");
-  if(saved&&/^\d{4}$/.test(saved)){
-    state.digits=saved.split("").map(Number);
-  }else{
-    state.digits=createCode();
-    sessionStorage.setItem("rhetoric-code-v3",state.digits.join(""));
-  }
-  ["p1","p2","p3","p4"].forEach((k,i)=>{
-    document.getElementById("digit-"+k).textContent=state.digits[i];
-  });
+  const saved=sessionStorage.getItem("rhetoric-code");
+  if(saved&&/^\d{4}$/.test(saved))state.digits=saved.split("").map(Number);
+  else{state.digits=createCode();sessionStorage.setItem("rhetoric-code",state.digits.join(""))}
+  ["p1","p2","p3","p4"].forEach((k,i)=>document.getElementById("digit-"+k).textContent=state.digits[i]);
 }
 function shuffle(n){
   const a=[...Array(n).keys()];
-  for(let i=a.length-1;i>0;i--){
-    const j=rand(i+1);[a[i],a[j]]=[a[j],a[i]];
-  }
+  for(let i=a.length-1;i>0;i--){const j=rand(i+1);[a[i],a[j]]=[a[j],a[i]]}
   return a;
 }
 function build(key){
-  const box=document.getElementById("options-"+key);
-  box.innerHTML="";
+  const box=document.getElementById("options-"+key);box.innerHTML="";
   shuffle(puzzles[key].options.length).forEach(idx=>{
     const b=document.createElement("button");
     b.type="button";b.className="option";b.textContent=puzzles[key].options[idx];
-    b.onclick=()=>answer(key,idx,b);
-    box.appendChild(b);
+    b.onclick=()=>answer(key,idx,b);box.appendChild(b)
   });
 }
 function answer(key,idx,button){
   if(state.warning||state.solved[key])return;
   const fb=document.getElementById("feedback-"+key);
-
   if(idx===puzzles[key].correct){
     state.solved[key]=true;
     document.querySelectorAll("#options-"+key+" .option").forEach(x=>x.disabled=true);
     button.classList.add("correct");
-    fb.textContent="Correct. Watch the lock.";
-    fb.className="feedback good";
-
+    fb.textContent="Correct. Watch the lock.";fb.className="feedback good";
     document.getElementById("reveal-"+key).classList.add("show");
     document.getElementById("next-"+key).disabled=false;
-
-    const num=key.replace("p","");
-    const p=document.querySelector('.p[data-lock="'+num+'"]');
-    p.classList.add("done");p.textContent="✓";
+    const n=key.replace("p","");
+    const dot=document.querySelector('.dot[data-lock="'+n+'"]');
+    dot.classList.add("done");dot.textContent="✓";
   }else{
-    button.classList.add("incorrect");button.disabled=true;
-    state.wrong[key]++;
-    fb.textContent="That lock rejects the answer. Re-read the evidence before choosing again.";
-    fb.className="feedback bad";
-    if(state.wrong[key]===2)houseWarning();
+    button.classList.add("incorrect");button.disabled=true;state.wrong[key]++;
+    fb.textContent="That lock rejects the answer. Re-read the evidence before choosing again.";fb.className="feedback bad";
+    if(state.wrong[key]===2)houseWarning()
   }
 }
 function houseWarning(){
   state.warning=true;
-  const app=document.getElementById("app");
-  const warning=document.getElementById("warning");
-  const count=document.getElementById("count");
-
-  app.classList.add("dim");warning.classList.add("show");
-
-  document.querySelectorAll(".option").forEach(b=>{
-    if(!b.disabled)b.dataset.temp="1";
-    b.disabled=true;
-  });
-
+  document.getElementById("app").classList.add("dim");
+  document.getElementById("warning").classList.add("show");
+  document.querySelectorAll(".option").forEach(b=>{if(!b.disabled)b.dataset.temp="1";b.disabled=true});
   let seconds=8;
+  const count=document.getElementById("count");
   count.textContent="The locks will respond again in "+seconds+" seconds.";
-
-  const timer=setInterval(()=>{
+  const t=setInterval(()=>{
     seconds--;
-    count.textContent=seconds>0
-      ?"The locks will respond again in "+seconds+" seconds."
-      :"The house is listening again.";
-
+    count.textContent=seconds>0?"The locks will respond again in "+seconds+" seconds.":"The house is listening again.";
     if(seconds<=0){
-      clearInterval(timer);
+      clearInterval(t);
       setTimeout(()=>{
-        warning.classList.remove("show");
-        app.classList.remove("dim");
-        document.querySelectorAll('.option[data-temp="1"]').forEach(b=>{
-          b.disabled=false;delete b.dataset.temp;
-        });
-        state.warning=false;
-      },450);
+        document.getElementById("warning").classList.remove("show");
+        document.getElementById("app").classList.remove("dim");
+        document.querySelectorAll('.option[data-temp="1"]').forEach(b=>{b.disabled=false;delete b.dataset.temp});
+        state.warning=false
+      },450)
     }
-  },1000);
+  },1000)
 }
-function toggleHint(id){
-  document.getElementById(id).classList.toggle("show");
-}
+function toggleHint(id){document.getElementById(id).classList.toggle("show")}
 function goTo(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-  document.getElementById("app").scrollIntoView({behavior:"smooth",block:"start"});
+  document.getElementById("app").scrollIntoView({behavior:"smooth",block:"start"})
 }
 function checkCode(){
   const input=document.getElementById("codeInput");
   const fb=document.getElementById("feedback-final");
   const val=input.value.replace(/\D/g,"");
   const correct=state.digits.join("");
-
   if(val===correct){
     const team=document.getElementById("teamName").value.trim();
-    const label=team
-      ?"PARLOR—"+correct+"—"+team.toUpperCase().replace(/[^A-Z0-9]/g,"")
-      :"PARLOR—"+correct;
+    const label=team?"PARLOR—"+correct+"—"+team.toUpperCase().replace(/[^A-Z0-9]/g,""):"PARLOR—"+correct;
     document.getElementById("completion").textContent=label;
-    fb.textContent="The locks release. The parlor opens...";
-    fb.className="feedback good";
-    setTimeout(()=>goTo("success"),650);
+    fb.textContent="The locks release...";fb.className="feedback good";
+
+    const transition=document.getElementById("doorTransition");
+    transition.classList.add("show");
+
+    setTimeout(()=>{
+      transition.classList.remove("show");
+      goTo("screen-success");
+    },2600);
   }else{
-    fb.textContent="The house remains silent. Check the four numbers and their order.";
-    fb.className="feedback bad";
+    fb.textContent="The house remains silent. Check the four numbers and their order.";fb.className="feedback bad"
   }
 }
-document.getElementById("codeInput").addEventListener("input",function(){
-  this.value=this.value.replace(/\D/g,"").slice(0,4);
-});
-document.getElementById("codeInput").addEventListener("keydown",e=>{
-  if(e.key==="Enter")checkCode();
-});
+document.getElementById("codeInput").addEventListener("input",function(){this.value=this.value.replace(/\D/g,"").slice(0,4)});
+document.getElementById("codeInput").addEventListener("keydown",e=>{if(e.key==="Enter")checkCode()});
 
 initCode();
 ["p1","p2","p3","p4"].forEach(build);
